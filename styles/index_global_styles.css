@@ -46,14 +46,16 @@ main {
 }
 
 .input_add {
-    width: 33vw;
+    width: 20vw;
     height: 20vh;
     color: #cacacc;
-    font-size: 2rem;
     border: 5px dashed #cacacc;
     background-color: white;
     transition: background-color 0.15s, color 0.15s;
+    border-radius: 10%;
+    font-size: 3vw;
 }
+
 
 .input_add:hover {
     background-color: rgba(98, 98, 98, 0.685);
