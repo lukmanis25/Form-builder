@@ -70,6 +70,7 @@ footer {
 main {
     padding-bottom: 3rem;    /* Footer height */
     padding: 10px 10px;
+    display: flex;
 }
 
 .input_add {
@@ -90,15 +91,27 @@ main {
     cursor: pointer;
 }
 
-.input {
+input{
+    width: 10vw;
+    height: 10vh;
+    
+}
+
+.input_form {
     border: 5px solid black;
     padding: 10px;
     border-radius: 10%;
     width: 30vw;
     height: 12vh;
-    margin-bottom: 2vh;
+    margin-bottom: 0;
 }
 
-.input input{
+.input_form input{
     width: 25vw;
+    height: 1rem;
 }
+
+.show_subquestion {
+    margin:  auto 0;
+}
+

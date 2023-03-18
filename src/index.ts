@@ -1,4 +1,5 @@
 import { InputTreeNode } from "./inputTreeNode.js";
+import { InputTypes } from "./inputTypes.js";
 
 const inputs: HTMLDivElement | null = document.querySelector('#inputs');
 let roots: InputTreeNode[] = []
@@ -21,12 +22,14 @@ function addButtonNewInput(id:string){
         console.log(id);
 
         /* Create new tree */
-        roots.push(new InputTreeNode(id, undefined));
+        let new_root:InputTreeNode  = new InputTreeNode(id, undefined)
+        roots.push(new_root);
     
         /* Del button new input and add form */
         target.remove();
-    
-    
+        new_root.createForm(inputs)
+        
+
         /* Add new button add input element*/ 
         const lastLetter:string = (+id.slice(-1) + 1).toString();
         let new_input_id: string = id.slice(0, -1) + lastLetter;
