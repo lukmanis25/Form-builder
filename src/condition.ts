@@ -1,4 +1,4 @@
-import { InputTypes } from "./inputTypes";
+import { InputTypes } from "./inputTypes.js";
 
 enum ConditionTypes {
     EQUALS = "Equals",

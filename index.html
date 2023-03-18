@@ -11,19 +11,30 @@
     <header>
         <h1>Form builder</h1>
         <div id = "logo"><img src ="images/logo.png" alt="Logo"></div>
+        <!-- <button id = "generate" onclick="location.href='./formularz.html'"  target="_blank">Generate Form</button> -->
+        <a href="./formularz.html" id = "generate" target="_blank"><span>Generate Form</span></a>
     </header>
 
     <main>
-        
         <div id="inputs">
-            <button class="input_add"> <span>&plus; <br> Add new input</span></button>
-
+            <form class="input">
+              <label for="question">Question</label><br>
+              <input type="text" name="question"><br>
+              <label for="type">Type</label><br>
+              <select name="type">
+                <option value="Text">Text</option>
+                <option value="Number">Number</option>
+                <option value="Yes/No">Yes/No</option>
+              </select>
+            </form>
+            <!-- <button class="input_add" id = "input_0"> &plus; <br> Add new input</button> -->
         </div>
     </main>
 
     <footer>
         <p>Author: Łuaksz Smoliński</p>
     </footer>
-	<script src="dist/index.js"></script>
+  <script>var exports = {};</script>
+	<script type= "module" src="dist/index.js"></script>
   </body>
 </html>

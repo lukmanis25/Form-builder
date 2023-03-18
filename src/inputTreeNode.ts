@@ -1,7 +1,8 @@
-import { InputTypes } from "./inputTypes";
+import { InputTypes } from "./inputTypes.js";
 import { ICondition, createCondition } from "./condition";
-class InputTreeNode {
-    private parent: InputTreeNode;
+export class InputTreeNode {
+    private id:string;
+    private parent: InputTreeNode | undefined = undefined;  //undefined only for root
     private childrens: InputTreeNode[] = [];
 
     private question:string = '';
@@ -9,13 +10,12 @@ class InputTreeNode {
     private condition?:ICondition;
 
 
-    
-   
-    constructor(parent: InputTreeNode) {
-      this.parent = parent;
+    constructor(id: string, parent: InputTreeNode | undefined) {
+        this.id = id;
+        this.parent = parent;
     }
    
-    greet() {
-      return "Hello, ";
+    appendChild():void{
+      console.log('x')
     }
   }
