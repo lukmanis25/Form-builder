@@ -25,9 +25,9 @@ function addButtonNewInput(id:string){
         let new_root:InputTreeNode  = new InputTreeNode(id, undefined)
         roots.push(new_root);
     
-        /* Del button new input and add form */
+        /* Del button new input and add input */
         target.remove();
-        new_root.createForm(inputs)
+        new_root.renderInput(inputs)
         
 
         /* Add new button add input element*/ 

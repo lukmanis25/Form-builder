@@ -18,9 +18,9 @@ function addButtonNewInput(id) {
         /* Create new tree */
         let new_root = new InputTreeNode(id, undefined);
         roots.push(new_root);
-        /* Del button new input and add form */
+        /* Del button new input and add input */
         target.remove();
-        new_root.createForm(inputs);
+        new_root.renderInput(inputs);
         /* Add new button add input element*/
         const lastLetter = (+id.slice(-1) + 1).toString();
         let new_input_id = id.slice(0, -1) + lastLetter;
