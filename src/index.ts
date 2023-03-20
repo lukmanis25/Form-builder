@@ -19,7 +19,6 @@ function addButtonNewInput(id:string){
         /* Get id */
         const target:Element = event.target as Element;
         const id:string = target.id;
-        console.log(id);
 
         /* Create new tree */
         let new_root:InputTreeNode  = new InputTreeNode(id, undefined)

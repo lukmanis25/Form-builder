@@ -1,5 +1,5 @@
 import { InputTypes } from "./inputTypes.js";
-var ConditionTypes;
+export var ConditionTypes;
 (function (ConditionTypes) {
     ConditionTypes["EQUALS"] = "Equals";
     ConditionTypes["GREATHER_THAN"] = "Greater than";
@@ -10,14 +10,25 @@ export class TextCondition {
         this.conditionType = ConditionTypes.EQUALS;
         this.conditionBody = "";
     }
-    setCondition() {
-        throw new Error("Method not implemented.");
+    setConditionBody(body) {
+        this.conditionBody = body;
     }
-    render() {
-        throw new Error("Method not implemented.");
+    setConditionType(type) {
+        if (type === ConditionTypes.EQUALS) {
+            this.conditionType = type;
+        }
+        else {
+            throw new Error("Condition wrong type!");
+        }
     }
-    showConditions() {
-        throw new Error("Method not implemented.");
+    createConditionBody() {
+        var input_condition_body = document.createElement("input");
+        input_condition_body.setAttribute("name", "condition_body");
+        input_condition_body.setAttribute("type", "text");
+        return input_condition_body;
+    }
+    getPossibleConditions() {
+        return [ConditionTypes.EQUALS];
     }
 }
 export class NumberCondition {
@@ -25,29 +36,58 @@ export class NumberCondition {
         this.conditionType = ConditionTypes.EQUALS;
         this.conditionBody = 0;
     }
-    setCondition() {
-        throw new Error("Method not implemented.");
+    setConditionBody(body) {
+        this.conditionBody = body;
     }
-    render() {
-        throw new Error("Method not implemented.");
+    setConditionType(type) {
+        if (type === ConditionTypes.EQUALS || type === ConditionTypes.GREATHER_THAN || type === ConditionTypes.LESS_THAN) {
+            this.conditionType = type;
+        }
+        else {
+            throw new Error("Condition wrong type!");
+        }
     }
-    showConditions() {
-        throw new Error("Method not implemented.");
+    createConditionBody() {
+        var input_condition_body = document.createElement("input");
+        input_condition_body.setAttribute("name", "condition_body");
+        input_condition_body.setAttribute("type", "number");
+        return input_condition_body;
+    }
+    getPossibleConditions() {
+        return [ConditionTypes.EQUALS, ConditionTypes.GREATHER_THAN, ConditionTypes.LESS_THAN];
     }
 }
 export class YesOrNoCondition {
     constructor() {
         this.conditionType = ConditionTypes.EQUALS;
-        this.conditionBody = false;
+        this.conditionBody = "yes";
     }
-    setCondition() {
-        throw new Error("Method not implemented.");
+    setConditionBody(body) {
+        this.conditionBody = body;
     }
-    render() {
-        throw new Error("Method not implemented.");
+    setConditionType(type) {
+        if (type === ConditionTypes.EQUALS) {
+            this.conditionType = type;
+        }
+        else {
+            throw new Error("Condition wrong type!");
+        }
     }
-    showConditions() {
-        throw new Error("Method not implemented.");
+    createConditionBody() {
+        var input_condition_body = document.createElement("select");
+        input_condition_body.setAttribute("name", "condition_body");
+        var option_yes = document.createElement("option");
+        option_yes.setAttribute("value", "yes");
+        option_yes.textContent = "Yes";
+        input_condition_body.appendChild(option_yes);
+        var option_no = document.createElement("option");
+        option_no.setAttribute("value", "no");
+        option_no.textContent = "No";
+        input_condition_body.appendChild(option_no);
+        return input_condition_body;
+    }
+    getPossibleConditions() {
+        return [ConditionTypes.EQUALS];
     }
 }
 export function createCondition(parentInputType) {
