@@ -1,5 +1,5 @@
 import { InputTreeNode } from "./inputTreeNode.js";
-import { InputTypes } from "./inputTypes.js";
+import { InputTypes } from "./input.js";
 
 export class inputHTMLBuilder {
     input: InputTreeNode;
@@ -18,9 +18,11 @@ export class inputHTMLBuilder {
     subquestion_section:HTMLDivElement;
     add_subquestion_button:HTMLButtonElement;
 
+
     constructor(input: InputTreeNode){
         this.input = input;
     }
+
 
     renderInput(container: HTMLDivElement): void{
         this.input_container = this.createContainer();

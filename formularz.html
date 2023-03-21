@@ -9,35 +9,39 @@
   </head>
   <body>
     <div id = "container">
-      <header>
-          <h1>FORM</h1>
-      </header>
-
-      <main>
-          <div id = "content">
+      <div id = "form_header">
+          <h2>FORM</h2>
+      </div>
+      <section>
+          <div id = "form_content">
             <form id = "form">
-              <div id = "input_x" class = "form_question">
+              <div id = "form_input_x" class = "form_question">
                 <p> Jak się nazywasz? </p>
-                <div class = "inputs">
+                <div class = "form_inputs">
                   <input class = "writable_input" name = "question" type = "text">
                 </div>
               </div>
-              <div id = "input_xx" class = "form_question">
+              <div id = "form_input_xx" class = "form_question">
                 <p> Czy jestes dorosly? </p>
-                <div class = "inputs">
-                  <input id = "yes" type="radio" name="yes/no" value="yes">
+                <div class = "form_inputs">
+                  <input type="radio" name="yes/no" value="yes">
                   <label for="yes">Yes</label>
-                  <input id = "no" type="radio" name="yes/no" value="no">
+                  <input type="radio" name="yes/no" value="no">
                   <label for="no">No</label>
+                </div>
+              </div>
+              <div id = "form_input_xxx" class = "form_question">
+                <p> Ile masz lat? </p>
+                <div class = "form_inputs">
+                  <input class = "writable_input" name = "question" type = "number">
                 </div>
               </div>
             </form>
 
           </div>
-      
-      </main>
+        </section>
     </div>
 
-	<script src="dist/formularz.js"></script>
+	<script type = "module" src="dist/generate_form.js"></script>
   </body>
 </html>

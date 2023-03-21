@@ -1,4 +1,4 @@
-import { InputTypes } from "./inputTypes.js";
+import { InputTypes } from "./input.js";
 export class inputHTMLBuilder {
     constructor(input) {
         this.input = input;

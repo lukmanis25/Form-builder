@@ -1,27 +1,50 @@
-import { InputTypes } from "./inputTypes.js";
+import { createInput, IInput, InputTypes } from "./input.js";
 import { ICondition, createCondition, ConditionTypes} from "./condition.js";
 import { inputHTMLBuilder } from "./inputHTMLBuilder.js";
+import { InputHTMLInForm } from "./inputHTMLInForm.js";
 export class InputTreeNode {
     private id:string;
     private parent: InputTreeNode | undefined = undefined;  //undefined only for root
     private childrens: InputTreeNode[] = [];
-    private last_children_id: string
+    private last_children_id: string // to control id unique
 
     private question:string = '';
     private type:InputTypes = InputTypes.TEXT;
+    private input:IInput;
     private condition?:ICondition;
 
+    /* HTML builders */
     private html_builder:inputHTMLBuilder;
+    private html_in_form:InputHTMLInForm;
 
     constructor(id: string, parent: InputTreeNode | undefined) {
         this.id = id;
         this.parent = parent;
         this.html_builder = new inputHTMLBuilder(this);
+        this.html_in_form = new InputHTMLInForm(this);
         this.last_children_id = this.id + "_0"
+        this.input = createInput(this.type, this)
     }
 
+    /* Render in genereted form */
+    public renderInForm(container: HTMLFormElement, is_hide?:Boolean | undefined) {
+      /* render question with input */
+      this.html_in_form.renderInput(container);
 
-    public renderInput(container: HTMLDivElement):void {
+      /* Show roots */
+      if(is_hide === undefined || is_hide === false){
+        this.html_in_form.toggleInput();
+      }
+
+      /* do the same for each child with hide value */
+      for(var subquestion of this.childrens){
+        subquestion.renderInForm(container, true);
+      }
+
+    }
+
+    /* Render input in building mode */
+    public render(container: HTMLDivElement):void {
 
       this.html_builder.renderInput(container);
       if(this.condition !== undefined){
@@ -36,6 +59,7 @@ export class InputTreeNode {
       this.addEventNewSubquest(this.html_builder.add_subquestion_button);
 
     } 
+
 
     private addEventChangeConditionType(select_condition_type:HTMLSelectElement){
       select_condition_type.addEventListener("change", (event)=>{
@@ -53,7 +77,6 @@ export class InputTreeNode {
     private addEventChangeQuestion(question_input:HTMLInputElement){
       question_input.addEventListener("input", (event) => {
         this.question = (event.target as HTMLInputElement).value;
-        console.log(this.question)
       });
     }
 
@@ -92,7 +115,7 @@ export class InputTreeNode {
           /* Append and render */
           this.appendChild(new_node);
           const subqestions: HTMLDivElement | null = document.querySelector("#subquestions_" + this.id);
-          new_node.renderInput(subqestions);
+          new_node.render(subqestions);
 
           /* rerender button at the end of subquestions */
           const target:Element = event.target as Element;
@@ -105,8 +128,13 @@ export class InputTreeNode {
 
     private addEventChangeType(input_select: HTMLSelectElement ): void{
       input_select.addEventListener("change", (event)=>{
+        /*Change type */
         var selected: HTMLSelectElement = event.target as HTMLSelectElement;
         this.type = selected.value as InputTypes;
+
+        /*Unset reference from old input and create new */
+        this.input.unsetInputNode()
+        this.input = createInput(this.type, this)
 
         /* Change conditions on all child */
         for( var subquest of  this.childrens){
@@ -151,5 +179,13 @@ export class InputTreeNode {
 
     public getCondition():ICondition | undefined {
       return this.condition;
+    }
+
+    public getQuestion(): string {
+      return this.question;
+    }
+
+    public getInput(): IInput{
+      return this.input;
     }
   }

@@ -1,4 +1,4 @@
-import { InputTypes } from "./inputTypes.js";
+import { InputTypes } from "./input.js";
 export var ConditionTypes;
 (function (ConditionTypes) {
     ConditionTypes["EQUALS"] = "Equals";
@@ -9,6 +9,9 @@ export class TextCondition {
     constructor() {
         this.conditionType = ConditionTypes.EQUALS;
         this.conditionBody = "";
+    }
+    isConditionFulfil(input_value) {
+        return input_value === this.conditionBody;
     }
     setConditionBody(body) {
         this.conditionBody = body;
@@ -30,11 +33,17 @@ export class TextCondition {
     getPossibleConditions() {
         return [ConditionTypes.EQUALS];
     }
+    addEventParentInputChange() {
+        throw new Error("Method not implemented.");
+    }
 }
 export class NumberCondition {
     constructor() {
         this.conditionType = ConditionTypes.EQUALS;
         this.conditionBody = 0;
+    }
+    isConditionFulfil(input_value) {
+        return input_value === this.conditionBody;
     }
     setConditionBody(body) {
         this.conditionBody = body;
@@ -60,7 +69,10 @@ export class NumberCondition {
 export class YesOrNoCondition {
     constructor() {
         this.conditionType = ConditionTypes.EQUALS;
-        this.conditionBody = "yes";
+        this.conditionBody = "";
+    }
+    isConditionFulfil(input_value) {
+        return input_value === this.conditionBody;
     }
     setConditionBody(body) {
         this.conditionBody = body;

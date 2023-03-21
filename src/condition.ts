@@ -1,4 +1,5 @@
-import { InputTypes } from "./inputTypes.js";
+import { InputTypes } from "./input.js";
+import { InputTreeNode } from "./inputTreeNode.js";
 
 export enum ConditionTypes {
     EQUALS = "Equals",
@@ -7,15 +8,20 @@ export enum ConditionTypes {
 }
 
 export interface ICondition {
-    createConditionBody():Element,
-    getPossibleConditions(): ConditionTypes[],
-    setConditionBody(body): void,
-    setConditionType(type: ConditionTypes):void,
+    createConditionBody():Element;
+    getPossibleConditions(): ConditionTypes[];
+    setConditionBody(body): void;
+    setConditionType(type: ConditionTypes):void;
+    isConditionFulfil(input_value):Boolean;
 }
 
 export class TextCondition implements ICondition{
     private conditionType: ConditionTypes.EQUALS = ConditionTypes.EQUALS;
     private conditionBody: string = "";
+
+    isConditionFulfil(input_value: string): Boolean {
+        return input_value === this.conditionBody;
+    }
 
     setConditionBody(body: string): void {
         this.conditionBody = body;
@@ -37,6 +43,9 @@ export class TextCondition implements ICondition{
     getPossibleConditions(): ConditionTypes[] {
         return [ConditionTypes.EQUALS];
     }
+    addEventParentInputChange(): void {
+        throw new Error("Method not implemented.");
+    }
 
 }
 
@@ -44,6 +53,9 @@ export class NumberCondition implements ICondition{
     private conditionType: ConditionTypes.EQUALS | ConditionTypes.GREATHER_THAN | ConditionTypes.LESS_THAN = ConditionTypes.EQUALS;
     private conditionBody: number = 0;
 
+    isConditionFulfil(input_value: number): Boolean {
+        return input_value === this.conditionBody;
+    }
     setConditionBody(body: number): void {
         this.conditionBody = body;
     }
@@ -69,8 +81,11 @@ export class NumberCondition implements ICondition{
 
 export class YesOrNoCondition implements ICondition{
     private conditionType: ConditionTypes.EQUALS = ConditionTypes.EQUALS;
-    private conditionBody: string = "yes";
-
+    private conditionBody: string = "";
+    
+    isConditionFulfil(input_value: string): Boolean {
+        return input_value === this.conditionBody;
+    }
     setConditionBody(body: string): void {
         this.conditionBody = body;
     }

@@ -1,6 +1,7 @@
-import { InputTypes } from "./inputTypes.js";
+import { createInput, InputTypes } from "./input.js";
 import { createCondition } from "./condition.js";
 import { inputHTMLBuilder } from "./inputHTMLBuilder.js";
+import { InputHTMLInForm } from "./inputHTMLInForm.js";
 export class InputTreeNode {
     constructor(id, parent) {
         this.parent = undefined; //undefined only for root
@@ -10,9 +11,25 @@ export class InputTreeNode {
         this.id = id;
         this.parent = parent;
         this.html_builder = new inputHTMLBuilder(this);
+        this.html_in_form = new InputHTMLInForm(this);
         this.last_children_id = this.id + "_0";
+        this.input = createInput(this.type, this);
     }
-    renderInput(container) {
+    /* Render in genereted form */
+    renderInForm(container, is_hide) {
+        /* render question with input */
+        this.html_in_form.renderInput(container);
+        /* Show roots */
+        if (is_hide === undefined || is_hide === false) {
+            this.html_in_form.toggleInput();
+        }
+        /* do the same for each child with hide value */
+        for (var subquestion of this.childrens) {
+            subquestion.renderInForm(container, true);
+        }
+    }
+    /* Render input in building mode */
+    render(container) {
         this.html_builder.renderInput(container);
         if (this.condition !== undefined) {
             this.html_builder.renderCondition();
@@ -39,7 +56,6 @@ export class InputTreeNode {
     addEventChangeQuestion(question_input) {
         question_input.addEventListener("input", (event) => {
             this.question = event.target.value;
-            console.log(this.question);
         });
     }
     addEventRemove(button) {
@@ -71,7 +87,7 @@ export class InputTreeNode {
             /* Append and render */
             this.appendChild(new_node);
             const subqestions = document.querySelector("#subquestions_" + this.id);
-            new_node.renderInput(subqestions);
+            new_node.render(subqestions);
             /* rerender button at the end of subquestions */
             const target = event.target;
             target.remove();
@@ -81,8 +97,12 @@ export class InputTreeNode {
     }
     addEventChangeType(input_select) {
         input_select.addEventListener("change", (event) => {
+            /*Change type */
             var selected = event.target;
             this.type = selected.value;
+            /*Unset reference from old input and create new */
+            this.input.unsetInputNode();
+            this.input = createInput(this.type, this);
             /* Change conditions on all child */
             for (var subquest of this.childrens) {
                 subquest.setCondition(createCondition(this.type));
@@ -117,5 +137,11 @@ export class InputTreeNode {
     }
     getCondition() {
         return this.condition;
+    }
+    getQuestion() {
+        return this.question;
+    }
+    getInput() {
+        return this.input;
     }
 }
