@@ -4,22 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form</title>
-    <link rel="stylesheet" href="styles/index_global_styles.css">
+    <link rel="stylesheet" href="styles/formularz.css">
     <link rel="icon" href="images/icon.ico" type="image/x-icon">
   </head>
   <body>
-    <header>
-        <h1>Form</h1>
-    </header>
+    <div id = "container">
+      <header>
+          <h1>FORM</h1>
+      </header>
 
-    <main>
-        
-    
-    </main>
+      <main>
+          <div id = "content">
+            <form id = "form">
+              <div id = "input_x" class = "form_question">
+                <p> Jak się nazywasz? </p>
+                <div class = "inputs">
+                  <input class = "writable_input" name = "question" type = "text">
+                </div>
+              </div>
+              <div id = "input_xx" class = "form_question">
+                <p> Czy jestes dorosly? </p>
+                <div class = "inputs">
+                  <input id = "yes" type="radio" name="yes/no" value="yes">
+                  <label for="yes">Yes</label>
+                  <input id = "no" type="radio" name="yes/no" value="no">
+                  <label for="no">No</label>
+                </div>
+              </div>
+            </form>
 
-    <footer>
-        <p>Author: Łuaksz Smoliński</p>
-    </footer>
+          </div>
+      
+      </main>
+    </div>
+
 	<script src="dist/formularz.js"></script>
   </body>
 </html>
