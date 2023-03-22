@@ -13,8 +13,9 @@
  * Possibility to switch between modes
  * The application is responsive to all resolutions
  
- #Run the Project
- Require local web server to let your browser render local files, because web browser only allows CORS (Cross-Origin Requests) for the URL starting with the following protocol schemes: HTTP, HTTPS, etc so file:// protocol scheme may be blocked.
+ # Run the Project
+ 
+ Require local web server to let your browser render local files, because web browser only allows CORS (Cross-Origin Requests) for the URL starting with the following  protocol schemes: HTTP, HTTPS, etc so file:// protocol scheme may be blocked.
 
  If you are using Visual Studio Code you can install the Live Server extension which provides a local web server enviroment.
  
