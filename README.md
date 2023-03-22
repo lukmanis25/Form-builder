@@ -22,7 +22,7 @@
  # Authors
  Łukasz Smoliński
  
- #Contact
- email: lukassmolinski123@gmail.com
- tel: 512 342 062
+ # Contact
+ * email: lukassmolinski123@gmail.com
+ * tel: 512 342 062
  
