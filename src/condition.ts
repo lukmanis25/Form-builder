@@ -8,11 +8,11 @@ export enum ConditionTypes {
 }
 
 export interface ICondition {
-    createConditionBody():Element;
-    getPossibleConditions(): ConditionTypes[];
-    setConditionBody(body): void;
+    createConditionBody():Element; //return element where user create condition body
+    getPossibleConditions(): ConditionTypes[]; //return possible condition types (equal, less than, greater than itp)
+    setConditionBody(body): void; 
     setConditionType(type: ConditionTypes):void;
-    isConditionFulfil(input_value):Boolean;
+    isConditionFulfil(input_value):Boolean; // Check if value fulfiled condition
 }
 
 export class TextCondition implements ICondition{
@@ -51,13 +51,21 @@ export class TextCondition implements ICondition{
 
 export class NumberCondition implements ICondition{
     private conditionType: ConditionTypes.EQUALS | ConditionTypes.GREATHER_THAN | ConditionTypes.LESS_THAN = ConditionTypes.EQUALS;
-    private conditionBody: number = 0;
+    private conditionBody: number | undefined = undefined;
 
-    isConditionFulfil(input_value: number): Boolean {
-        return input_value === this.conditionBody;
+    isConditionFulfil(input_value: number | undefined): Boolean {
+        if(this.conditionType === ConditionTypes.EQUALS){
+            return input_value === this.conditionBody;
+        }
+        else if(this.conditionType === ConditionTypes.GREATHER_THAN){
+            return input_value > this.conditionBody;
+        }
+        else if(this.conditionType === ConditionTypes.LESS_THAN){
+            return input_value < this.conditionBody;
+        }
     }
     setConditionBody(body: number): void {
-        this.conditionBody = body;
+        this.conditionBody = +body;
     }
     setConditionType(type: ConditionTypes): void {
         if(type === ConditionTypes.EQUALS || type === ConditionTypes.GREATHER_THAN || type === ConditionTypes.LESS_THAN){
@@ -81,7 +89,7 @@ export class NumberCondition implements ICondition{
 
 export class YesOrNoCondition implements ICondition{
     private conditionType: ConditionTypes.EQUALS = ConditionTypes.EQUALS;
-    private conditionBody: string = "";
+    private conditionBody: string = "yes";
     
     isConditionFulfil(input_value: string): Boolean {
         return input_value === this.conditionBody;
@@ -118,6 +126,8 @@ export class YesOrNoCondition implements ICondition{
     }
 
 }
+
+/* Create condition depends on parent input type */
 export function createCondition(parentInputType: InputTypes): ICondition | undefined{
     if(parentInputType == InputTypes.TEXT){
         return new TextCondition

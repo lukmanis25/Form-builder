@@ -1,14 +1,12 @@
 import { InputTreeNode } from "./inputTreeNode.js";
-const inputs = document.querySelector('#inputs');
-const generet_button = document.querySelector('#generate');
-const form_container = document.querySelector('#form_container');
-const builder_container = document.querySelector('#builder_container');
-const form_content = document.querySelector('#form_content');
-let roots = []; //main questions
+const inputs = document.querySelector('#inputs'); //container for inputs in build mode
+const generet_button = document.querySelector('#generate'); //change modes
+const form_container = document.querySelector('#form_container'); //container for form mode
+const builder_container = document.querySelector('#builder_container'); //container for build mode
+const form_content = document.querySelector('#form_content'); //container for form questions
+export let roots = []; //root questions
 let isBuildMode = true;
-export function getRoots() {
-    return roots;
-}
+/* Add buttons to add new inputs*/
 function addButtonNewInput(id) {
     /* Create button and add to inputs*/
     const new_button = document.createElement("button");
@@ -34,12 +32,14 @@ function addButtonNewInput(id) {
         addButtonNewInput(new_input_id);
     });
 }
+/* Change mode visions */
 function toggleVision() {
     form_container.classList.toggle("show_form_container");
     form_container.classList.toggle("hide_form_container");
     builder_container.classList.toggle("hide_builder_container");
     builder_container.classList.toggle("show_builder_container");
 }
+/* Change button vision depends on mode */
 function toggleButtonGenerate() {
     if (isBuildMode) {
         generet_button.textContent = "Stop";
@@ -50,6 +50,7 @@ function toggleButtonGenerate() {
         generet_button.style.backgroundColor = "#3b8811";
     }
 }
+/* Generate form */
 function generate() {
     var form = document.querySelector('#form');
     /* Rerender form */
@@ -57,13 +58,12 @@ function generate() {
     var new_form = document.createElement("form");
     new_form.setAttribute("id", "form");
     for (var input of roots) {
-        console.log(input);
         input.renderInForm(new_form);
     }
     form_content.appendChild(new_form);
 }
 generet_button.addEventListener("click", (event) => {
-    /* genereta mode if we go to form mode */
+    /* genereta form if we go to form mode */
     if (isBuildMode) {
         generate();
     }

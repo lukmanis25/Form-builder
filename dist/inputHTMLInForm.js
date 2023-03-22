@@ -6,8 +6,20 @@ export class InputHTMLInForm {
         this.form_question = this.createFormQuestion();
         container.appendChild(this.form_question);
     }
-    toggleInput() {
-        this.form_question.classList.toggle("show_form_question");
+    ShowInput() {
+        if (this.form_question.classList.contains("show_form_question") === false) {
+            this.form_question.classList.add("show_form_question");
+        }
+    }
+    HideInput() {
+        if (this.form_question.classList.contains("show_form_question")) {
+            this.form_question.classList.remove("show_form_question");
+        }
+    }
+    removeInput() {
+        if (this.form_question !== undefined) {
+            this.form_question.remove();
+        }
     }
     createFormQuestion() {
         var form_question = document.createElement("div");
@@ -23,7 +35,6 @@ export class InputHTMLInForm {
     createFormInputs() {
         var inputs = document.createElement("div");
         inputs.classList.add("form_inputs");
-        //Dodac inputy
         this.input.getInput().createInput(inputs);
         return inputs;
     }

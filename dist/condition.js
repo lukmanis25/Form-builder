@@ -40,13 +40,21 @@ export class TextCondition {
 export class NumberCondition {
     constructor() {
         this.conditionType = ConditionTypes.EQUALS;
-        this.conditionBody = 0;
+        this.conditionBody = undefined;
     }
     isConditionFulfil(input_value) {
-        return input_value === this.conditionBody;
+        if (this.conditionType === ConditionTypes.EQUALS) {
+            return input_value === this.conditionBody;
+        }
+        else if (this.conditionType === ConditionTypes.GREATHER_THAN) {
+            return input_value > this.conditionBody;
+        }
+        else if (this.conditionType === ConditionTypes.LESS_THAN) {
+            return input_value < this.conditionBody;
+        }
     }
     setConditionBody(body) {
-        this.conditionBody = body;
+        this.conditionBody = +body;
     }
     setConditionType(type) {
         if (type === ConditionTypes.EQUALS || type === ConditionTypes.GREATHER_THAN || type === ConditionTypes.LESS_THAN) {
@@ -69,7 +77,7 @@ export class NumberCondition {
 export class YesOrNoCondition {
     constructor() {
         this.conditionType = ConditionTypes.EQUALS;
-        this.conditionBody = "";
+        this.conditionBody = "yes";
     }
     isConditionFulfil(input_value) {
         return input_value === this.conditionBody;
@@ -102,6 +110,7 @@ export class YesOrNoCondition {
         return [ConditionTypes.EQUALS];
     }
 }
+/* Create condition depends on parent input type */
 export function createCondition(parentInputType) {
     if (parentInputType == InputTypes.TEXT) {
         return new TextCondition;

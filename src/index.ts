@@ -1,18 +1,15 @@
 import { InputTreeNode } from "./inputTreeNode.js";
 
-const inputs: HTMLDivElement | null = document.querySelector('#inputs');
-const generet_button: HTMLButtonElement = document.querySelector('#generate');
-const form_container = document.querySelector('#form_container');
-const builder_container = document.querySelector('#builder_container');
-const form_content = document.querySelector('#form_content');
-let roots: InputTreeNode[] = []  //main questions
+const inputs: HTMLDivElement | null = document.querySelector('#inputs'); //container for inputs in build mode
+const generet_button: HTMLButtonElement = document.querySelector('#generate'); //change modes
+const form_container = document.querySelector('#form_container'); //container for form mode
+const builder_container = document.querySelector('#builder_container'); //container for build mode
+const form_content = document.querySelector('#form_content'); //container for form questions
+export let roots: InputTreeNode[] = []  //root questions
 
 let isBuildMode:Boolean = true;
 
-export function getRoots(): InputTreeNode[]{
-    return roots;
-}
-
+/* Add buttons to add new inputs*/
 function addButtonNewInput(id:string){
     /* Create button and add to inputs*/
     const new_button:HTMLButtonElement  = document.createElement("button");
@@ -45,6 +42,7 @@ function addButtonNewInput(id:string){
     })
 }
 
+/* Change mode visions */
 function toggleVision(): void{
     form_container.classList.toggle("show_form_container");
     form_container.classList.toggle("hide_form_container");
@@ -52,6 +50,7 @@ function toggleVision(): void{
     builder_container.classList.toggle("show_builder_container");
 }
 
+/* Change button vision depends on mode */
 function toggleButtonGenerate(){
     if(isBuildMode){
         generet_button.textContent = "Stop"
@@ -63,14 +62,16 @@ function toggleButtonGenerate(){
     }
 }
 
+/* Generate form */
 function generate(): void{
     var form = document.querySelector('#form');
+
     /* Rerender form */
     form.remove();
     var new_form = document.createElement("form");
+
     new_form.setAttribute("id", "form");
     for (var input of roots) {
-        console.log(input);
         input.renderInForm(new_form);
     }
 
@@ -78,8 +79,9 @@ function generate(): void{
     form_content.appendChild(new_form);
 }
 
+
 generet_button.addEventListener("click", (event)=>{
-    /* genereta mode if we go to form mode */
+    /* genereta form if we go to form mode */
     if(isBuildMode){
         generate();
     }
@@ -96,6 +98,7 @@ generet_button.addEventListener("click", (event)=>{
         isBuildMode = true;
     }
 })
+
 
 
 addButtonNewInput("input_0");
