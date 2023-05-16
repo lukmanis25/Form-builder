@@ -19,10 +19,5 @@
 
  If you are using Visual Studio Code you can install the Live Server extension which provides a local web server enviroment.
  
- # Authors
- Łukasz Smoliński
- 
- # Contact
- * email: lukassmolinski123@gmail.com
- * tel: 512 342 062
+
  
